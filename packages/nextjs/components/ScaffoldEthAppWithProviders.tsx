@@ -70,12 +70,12 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
   //       // Subscribe to an account
   //       // await client.request({
   //       //   command: "subscribe",
-  //       //   accounts: ["rEMuMyGj2wMm3iJbeX1EvhVZjjzffrEG8y"],
+  //       //   accounts: ["rLXbPN2kiiQ4skm7nU7Qe7ADNR8mqKLAyZ"],
   //       // });
 
   //       const response = await client.request({
   //         command: "account_info",
-  //         account: "rEMuMyGj2wMm3iJbeX1EvhVZjjzffrEG8y",
+  //         account: "rLXbPN2kiiQ4skm7nU7Qe7ADNR8mqKLAyZ",
   //         ledger_index: "validated",
   //       });
 
