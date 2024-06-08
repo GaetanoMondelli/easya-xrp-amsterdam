@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Account, Wallet, WalletAddressContext, XRPLClient, useBalance } from "@nice-xrpl/react-xrpl";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -8,6 +9,14 @@ import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
+  const mySeed = "sEd7vkizTdUop1DLQcm8AAsPob2DwwD";
+  const myAddress = "rEMuMyGj2wMm3iJbeX1EvhVZjjzffrEG8y";
+
+  function ShowBalance() {
+    const balance = useBalance();
+
+    return <div>Balance: {balance}</div>;
+  }
 
   return (
     <>
@@ -37,6 +46,9 @@ const Home: NextPage = () => {
               packages/hardhat/contracts
             </code>
           </p>
+          <Account address={myAddress}>
+            <ShowBalance />
+          </Account>
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
