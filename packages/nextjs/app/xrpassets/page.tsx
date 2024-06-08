@@ -21,6 +21,7 @@ const Home: NextPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tokens, setTokens] = useState<any>([]);
   const [token, setToken] = useState<any>({});
+  const [txId, setTxId] = useState<any>(undefined);
 
   const myseed = "sEdT8WPqpEAVpygKSrA6svMHYU8NbaG";
   const sequence = 1347914;
@@ -133,10 +134,12 @@ const Home: NextPage = () => {
             // justifyContent: "center",
           }}
         >
+
           <Steps
             direction="vertical"
             style={{
               width: "600px",
+              height: "100%",
               // border: "1px solid #ccc",
               // text justifies the text
               // center the text
@@ -290,22 +293,23 @@ const Home: NextPage = () => {
               },
               {
                 title: "Push XRPL Data to XRPL EVM SIDECHAIN",
-                // subTitle: (
-                //   <a
-                //     style={{
-                //       color: "green",
-                //       textDecoration: "underline",
-                //     }}
-                //     href="https://sepolia.etherscan.io/tx/0x88f9a23993945c84d4accb1f2601cdd237c82d0ee3ad290e0f78bea5b803ac96"
-                //   >
-                //     TXhash (0x88f)
-                //   </a>
-                // ),
+                subTitle: txId && (
+                  <a
+                    target="_blank"
+                    style={{
+                      color: "green",
+                      textDecoration: "underline",
+                    }}
+                    href={`https://testnet.xrpl.org/transactions/${txId}`}
+                  >
+                    TXhash ({txId})
+                  </a>
+                ),
                 description: (
                   <>
                     Usign GMP (General Message Pass) Protocol from Axelar we push the on-chain data to the XRPL EVM
                     Sidechain. along with the ledger_index of the XRPL node to ensure the data is valid and can be
-                    verified.
+                    verified txId:{txId}
                     <br></br>
                     <button
                       style={{
@@ -360,7 +364,12 @@ const Home: NextPage = () => {
                               body: JSON.stringify(paymentTx),
                             })
                               .then(response => response.json())
-                              .then(data => setResponse(data));
+                              .then(data => {
+                                setResponse(data);
+                                if (data.result.ctid) {
+                                  setTxId(data.result.ctid);
+                                }
+                              });
                             // setResponse({ "XRPL EVM Sidechain": "pushing Data on AXELAR" });
                             setStepCount(4);
                           });
