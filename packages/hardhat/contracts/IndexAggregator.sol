@@ -2,9 +2,7 @@
 pragma solidity ^0.8.0;
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications/CCIPReceiver.sol";
 import {ILiquidityManager} from "./ILiquidityManager.sol";
-import {TaggingVerifier} from "./TaggingVerifier.sol";
 
 uint32 constant CALLBACK_GAS_LIMIT = 4_000_000;
 
@@ -57,7 +55,7 @@ enum PayFeesIn {
 error NotEnoughBalance(uint256 currentBalance, uint256 calculatedFees);
 
 
-contract IndexAggregator is CCIPReceiver {
+contract IndexAggregator {
     TokenInfo[] public tokenInfo;
     TokenInfo[] tmpTokens;
     ILiquidityManager public liquidityManager;
@@ -65,7 +63,6 @@ contract IndexAggregator is CCIPReceiver {
     string[] public tokenSymbols;
 
     
-    ILiquidityManager[] public liquidityMessages;
     SupplyMessage[] public supplyMessages;
     LiquidityMessage[] public liquidityMessages;
     // TaggingVerifier public taggingVerifier;
@@ -109,9 +106,9 @@ contract IndexAggregator is CCIPReceiver {
 
     // Initialize methods
 
-    function setTaggingVerifier(address _taggingVerifier) external {
-        taggingVerifier = TaggingVerifier(_taggingVerifier);
-    }
+    // function setTaggingVerifier(address _taggingVerifier) external {
+    //     taggingVerifier = TaggingVerifier(_taggingVerifier);
+    // }
 
     function setChainId(uint32 _chainId, uint32 _mainChainId) external {
         chainId = _chainId;
@@ -187,7 +184,7 @@ contract IndexAggregator is CCIPReceiver {
 
     function receiveFromAxelar(
         IndexUpdateMessage memory indexMessage
-    ) internal virtual override {
+    ) external {
 
         // add @axelar-network/axelar-cgp-solidity logic here
 
