@@ -2,9 +2,6 @@
 pragma solidity ^0.8.0;
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications/CCIPReceiver.sol";
-// import {LiquidityManager} from "./LiquidityManager.sol"; // TO be implemented
-// import {TaggingVerifier} from "./TaggingVerifier.sol"; TO be implemented
 
 uint32 constant CALLBACK_GAS_LIMIT = 4_000_000;
 
@@ -29,8 +26,8 @@ struct LiquidityMessage {
     uint32 chainId;
     uint256 timestamp;
 } 
-struct SupplyMessage {
 
+struct SupplyMessage {
     address token;
     uint256 supply;
     uint32 chainId;
@@ -159,6 +156,17 @@ contract IndexAggregator is CCIPReceiver {
                 }
             }
         }
+
+        if(!isMainChain()){
+            SupplyMessage[] memory _supplyMessages = new SupplyMessage[](tokenInfo.length);
+            LiquidityMessage[] memory _liquidityMessages = new LiquidityMessage[](tokenInfo.length);
+            for (uint256 i = 0; i < tokenInfo.length; i++) {
+                if(chainId == tokenInfo[i]._chainId){
+                    _supplyMessages[i] = SupplyMessage(tokenInfo[i]._address, _totalSupplies[i], chainId, block.timestamp);
+                    _liquidityMessages[i] = LiquidityMessage(tokenInfo[i]._address, _liquidities[i], chainId, block.timestamp);
+                }
+            }
+        }
     }
 
 
@@ -172,6 +180,22 @@ contract IndexAggregator is CCIPReceiver {
         }
     }
 
+
+    function receiveFromAxelar(
+        IndexUpdateMessage memory indexMessage
+    ) internal virtual override {
+
+        // add @axelar-network/axelar-cgp-solidity logic here
+
+        for (uint256 i = 0; i < indexMessage.liquidityMessages.length; i++) {
+            LiquidityMessage memory liquidityMessage = indexMessage.liquidityMessages[i];
+            liquidityMessages.push(liquidityMessage);
+        }
+        for (uint256 i = 0; i < indexMessage.supplyMessages.length; i++) {
+            SupplyMessage memory supplyMessage = indexMessage.supplyMessages[i];
+            supplyMessages.push(supplyMessage);
+        }
+    }
 
     function collectPriceFeeds() external {
         require(block.timestamp - lastSampleTime >= samplingFrequency, "IndexAggregator: Sampling frequency not reached");
