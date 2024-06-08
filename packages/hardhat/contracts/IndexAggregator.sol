@@ -2,6 +2,9 @@
 pragma solidity ^0.8.0;
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications/CCIPReceiver.sol";
+import {ILiquidityManager} from "./ILiquidityManager.sol";
+import {TaggingVerifier} from "./TaggingVerifier.sol";
 
 uint32 constant CALLBACK_GAS_LIMIT = 4_000_000;
 
@@ -42,8 +45,8 @@ struct AggregatorParams {
 }
 
 struct IndexUpdateMessage {
-    SupplyMessage[] supplyMessages;
     LiquidityMessage[] liquidityMessages;
+    SupplyMessage[] supplyMessages;
 }
 
 enum PayFeesIn {
@@ -57,13 +60,14 @@ error NotEnoughBalance(uint256 currentBalance, uint256 calculatedFees);
 contract IndexAggregator is CCIPReceiver {
     TokenInfo[] public tokenInfo;
     TokenInfo[] tmpTokens;
-    LiquidityManager public liquidityManager;
+    ILiquidityManager public liquidityManager;
     mapping(string => uint256) public tokens;
     string[] public tokenSymbols;
 
     
+    ILiquidityManager[] public liquidityMessages;
     SupplyMessage[] public supplyMessages;
-    // LiquidityMessage[] public liquidityMessages;
+    LiquidityMessage[] public liquidityMessages;
     // TaggingVerifier public taggingVerifier;
 
     uint256[] public totalSupplies;
@@ -94,7 +98,7 @@ contract IndexAggregator is CCIPReceiver {
         timeWindow = _aggregatorParams._timeWindow;
         samplingFrequency = timeWindow / sampleSize;
         bribeUnit = _aggregatorParams._bribeUnit;
-        // liquidityManager = LiquidityManager(_liquidityManager);
+        liquidityManager = ILiquidityManager(_liquidityManager);
         for (uint256 i = 0; i < _tokenInfo.length; i++) {
             tokenInfo.push(_tokenInfo[i]);
             tokenSymbols.push(_tokenInfo[i]._symbol);
