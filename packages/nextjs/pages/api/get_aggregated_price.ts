@@ -166,6 +166,18 @@ const simulatedResponse = (base_asset, price_unit) => {
   };
 };
 
+// http://localhost:3000/api/get_aggregated_price?base_asset=CTF&price_unit=USD
+
 export default async function handler(req: any, res: any) {
-  res.status(200).json(simulatedResponse("CTF", "USD"));
+  if (req.method == "GET") {
+    if (req.query.base_asset && req.query.price_unit) {
+      return res.status(200).json(simulatedResponse(req.query.base_asset, req.query.price_unit));
+    }
+    res.status(200).json(tokens);
+  }
+  if (req.method == "POST") {
+    if (req.body.base_asset && req.body.price_unit) {
+      return res.status(200).json(simulatedResponse(req.body.base_asset, req.body.price_unit));
+    }
+  }
 }
