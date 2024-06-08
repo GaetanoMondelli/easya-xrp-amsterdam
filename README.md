@@ -1,80 +1,65 @@
-# 🏗 Scaffold-ETH 2
+# Description
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+In our previous hackathon, we introduced XTF, a solution for creating decentralized ETFs. This enables users to lock tokens across various chains in buckets and fractionalize them into shares in the EVM Sidechain Ledger.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+During these months, we received a lot of positive feedback. However, one recurring concern from the community was about the centralization risks in selecting the list of tokens in the index.
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+Taking this feedback to heart, in this hackathon, we worked on a prototype to enhance decentralization when determining indexes. 
+Our solution uses on-chain data from the XLS-47d price oracle to aggregate data from multiple sources and port them to the EVM Side Chain through Axelar’s General Message Passing (GMP) protocol. The XLS-47d get_aggregate_price function retrieves the mean, median, and average from multiple sources, mitigating collusion risks related to a single entity source.
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+For EVM assets we pull onchan data about liquidity using the `liquidity` method of IUniswapPool standard interface and supply data using the totalSupply method of ERC20 tokens.  
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+For XRP assets we fetch data about liquidity by using the `book_offers` command and comparing our token to reference coins like XRP/USD, and supply data through the account_lines command for each XRP token.
 
-## Requirements
+We employ the Axelar Bridge to propagate prices, supplies and liquidity of XRP tokens to the EVM sidechain, ensuring consistent metrics with EVM tokens that are used to calculate the market capitalization:
 
-Before you begin, you need to install the following tools:
+Market Cap = totalSupply * AVG(prize) for all Token T with liquidity(T)> liquidity_threshold) 
 
-- [Node (>= v18.17)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+A smart contract in the EVM Sidechai, IndexAggreagtor stores this information about assets and persist it in an index when a new XTF fund needs to be created.
 
-## Quickstart
-
-To get started with Scaffold-ETH 2, follow the steps below:
-
-1. Install dependencies if it was skipped in CLI:
-
-```
-cd my-dapp-example
-yarn install
-```
-
-2. Run a local network in the first terminal:
-
-```
-yarn chain
-```
-
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/hardhat/hardhat.config.ts`.
-
-3. On a second terminal, deploy the test contract:
-
-```
-yarn deploy
-```
-
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-Run smart contract test with `yarn hardhat:test`
-
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
+By defining our indexes using on-chain data and aggregating secure oracle data rather than third-party inputs, we aim to provide a more trustworthy solution.
 
 
-## Documentation
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
 
-## Contributing to Scaffold-ETH 2
 
-We welcome contributions to Scaffold-ETH 2!
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+https://clean-soft-shard.xrp-testnet.quiknode.pro/c4578c13478cf1d63bf30c80d75b2651ffa56a69/
+
+
+curl -X POST https://clean-soft-shard.xrp-testnet.quiknode.pro/c4578c13478cf1d63bf30c80d75b2651ffa56a69/ -H "Content-Type: application/json" -d '{
+  "method": "submit",
+  "params": [
+    {
+      "tx_json": {
+        "TransactionType": "CreateOracle",
+        "Account": "rLXbPN2kiiQ4skm7nU7Qe7ADNR8mqKLAyZ",
+        "Symbol": "XRP",
+        "SymbolClass": "63757272656E6379",
+        "PriceUnit": "USD",
+        "Provider": "70726F7669646572"
+      },
+      "secret": "sEdT8WPqpEAVpygKSrA6svMHYU8NbaG"
+    }
+  ]
+}'
+
+
+
+curl -X POST https://s.devnet.rippletest.net:51234/ -H "Content-Type: application/json" -d '{   
+  "method": "submit",
+  "params": [
+    {
+      "tx_json": {
+        "TransactionType": "CreateOracle",
+        "Account": "rKqgCYs5FDZR7Rrw17TVMsHQnRrWHc8qDY",
+        "Symbol": "XRP",
+        "SymbolClass": "63757272656E6379",
+        "PriceUnit": "USD",
+        "Provider": "70726F7669646572"
+      },
+      "secret": "sEdVEGpSDtt9WWwEBkhXFK1aSHTVXSb"
+    }
+  ]
+}'
