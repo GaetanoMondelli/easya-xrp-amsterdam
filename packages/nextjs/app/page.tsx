@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image"; 
 import Link from "next/link";
-import { Steps } from "antd";
+import { Modal, Steps } from "antd";
 import type { NextPage } from "next";
 import ReactJson from "react-json-view";
 import { useAccount } from "wagmi";
@@ -14,9 +15,10 @@ const Home: NextPage = () => {
   const [balance, setBalance] = useState<string | null>(null);
   const [connectionStatus, setConnectionStatus] = useState("Initializing...");
   const [client, setClient] = useState<any>(null);
-  const [oracle, setOracle] = useState<any>(null);
+  // const [oracle, setOracle] = useState<any>(null);
   const [stepCount, setStepCount] = useState(0);
   const [response, setResponse] = useState<any>({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const myseed = "sEdT8WPqpEAVpygKSrA6svMHYU8NbaG";
   const sequence = 1347914;
@@ -266,6 +268,29 @@ const Home: NextPage = () => {
         </div>
       </div>
       {/* Oracle Response {oracle} */}
+      <Modal
+        width={1500}
+        // title="ChainLink Data Feeds"
+        visible={isModalVisible}
+        onOk={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
+        footer={null}
+      >
+        <Image
+          width={1400}
+          height={1200}
+          src={"/images/index.png"}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            borderRadius: "5px",
+            boxShadow: "0px 1px 6px rgba(0, 0, 0, 0.25)",
+          }}
+          alt="Available on OpenSea"
+        />
+        <br />
+      </Modal>
     </>
   );
 };
