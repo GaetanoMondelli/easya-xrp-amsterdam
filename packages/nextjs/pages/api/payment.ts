@@ -70,7 +70,7 @@ export default async function handler(req, res) {
 
       const signedTx = wallet.sign(paymentTx);
 
-      const submitResult = await client.submitAndWait(signedTx.tx_blob);
+      let submitResult = await client.submitAndWait(signedTx.tx_blob);
 
       console.log("Transaction result:", submitResult);
 

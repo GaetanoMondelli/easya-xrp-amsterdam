@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image"; 
+import Image from "next/image";
 import Link from "next/link";
-import { Modal, Steps } from "antd";
+import { Avatar, Modal, Select, Steps } from "antd";
 import type { NextPage } from "next";
 import ReactJson from "react-json-view";
 import { useAccount } from "wagmi";
 import * as xrpl from "xrpl";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
@@ -19,6 +19,9 @@ const Home: NextPage = () => {
   const [stepCount, setStepCount] = useState(0);
   const [response, setResponse] = useState<any>({});
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [tokens, setTokens] = useState<any>([]);
+  const [token, setToken] = useState<any>({});
+  const [txId, setTxId] = useState<string>("");
 
   const myseed = "sEdT8WPqpEAVpygKSrA6svMHYU8NbaG";
   const sequence = 1347914;
@@ -90,6 +93,38 @@ const Home: NextPage = () => {
           Create Oracle
         </button>
         <br></br>
+        <button
+          style={{
+            height: "30px",
+            padding: "3px 14px",
+            backgroundColor: "#f56a00",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={async () => {
+            setIsModalVisible(true);
+          }}
+          >
+          Show Diagram
+          </button>
+        <br></br>
+
+        <Select
+          defaultValue="Token"
+          style={{ width: 120 }}
+          onChange={value => {
+            console.log(value);
+            setToken(tokens.find((t: any) => t.symbol === value));
+          }}
+        >
+          {tokens.map((t: any) => (
+            <Select.Option key={t.symbol} value={t.symbol}>
+              <Avatar src={t.logo} size="small" />
+              {t.symbol}
+            </Select.Option>
+          ))}
+        </Select>
         <div
           style={{
             display: "flex",
@@ -133,6 +168,7 @@ const Home: NextPage = () => {
                           .then(response => response.json())
                           .then(data => {
                             console.log(data);
+                            setTokens(data);
                             setResponse(data);
                           });
                       }}
@@ -160,7 +196,7 @@ const Home: NextPage = () => {
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        fetch("http://localhost:3000/api/account_lines?base_asset=CTF&price_unit=usd")
+                        fetch(`http://localhost:3000/api/account_lines?base_asset=${token.symbol}&price_unit=usd`)
                           .then(response => response.json())
                           .then(data => {
                             console.log(data);
@@ -261,8 +297,13 @@ const Home: NextPage = () => {
               margin: "auto",
             }}
           >
+            <br></br>
+            <br></br>
+
             Response XRPL Mock Node :3000 Objects
             <br></br>
+            <br></br>
+
             <ReactJson src={response} />
           </div>
         </div>
