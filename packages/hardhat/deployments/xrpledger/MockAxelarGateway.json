@@ -1,0 +1,1121 @@
+{
+  "address": "0xBDb61affDA4490B9e962b542cfb212ec50D1AC0C",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "BurnFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "ExceedMintLimit",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAuthModule",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidChainId",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidCodeHash",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidCommands",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidGovernance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidMintLimiter",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidSetMintLimitsParams",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidTokenDeployer",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "MintFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotGovernance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotMintLimiter",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotProxy",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotSelf",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SetupFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "TokenAlreadyExists",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "TokenContractDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "TokenDeployFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "TokenDoesNotExist",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationContractAddress",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        }
+      ],
+      "name": "ContractCall",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "contractAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "sourceTxHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "sourceEventIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "ContractCallApproved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "contractAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "sourceTxHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "sourceEventIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "ContractCallApprovedWithMint",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ContractCallExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationContractAddress",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "ContractCallWithToken",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "Executed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousGovernance",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newGovernance",
+          "type": "address"
+        }
+      ],
+      "name": "GovernanceTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousGovernance",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newGovernance",
+          "type": "address"
+        }
+      ],
+      "name": "MintLimiterTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "newOperatorsData",
+          "type": "bytes"
+        }
+      ],
+      "name": "OperatorshipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "tokenAddresses",
+          "type": "address"
+        }
+      ],
+      "name": "TokenDeployed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenMintLimitUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationAddress",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenSent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "allTokensFrozen",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "authModule",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "contractAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        }
+      ],
+      "name": "callContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "contractAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        },
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "callContractWithToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "contractId",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "governance",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "implementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isCommandExecuted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "contractAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "isContractCallAndMintApproved",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "contractAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isContractCallApproved",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mintLimiter",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "destinationAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string[]",
+          "name": "symbols",
+          "type": "string[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "limits",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "setTokenMintLimits",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "setup",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "tokenAddresses",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenDeployer",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "tokenFrozen",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "tokenMintAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        }
+      ],
+      "name": "tokenMintLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newGovernance",
+          "type": "address"
+        }
+      ],
+      "name": "transferGovernance",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newGovernance",
+          "type": "address"
+        }
+      ],
+      "name": "transferMintLimiter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "newImplementationCodeHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "setupParams",
+          "type": "bytes"
+        }
+      ],
+      "name": "upgrade",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "validateContractCall",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "payloadHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "validateContractCallAndMint",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xb0a1aabc0a84f42c8c2b791414cd14173f6c5fe7597d3c067a4830dcc83cca6b",
+  "receipt": {
+    "to": null,
+    "from": "0x2a1F5eB3e84e58e6F1e565306298B9dE1273f203",
+    "contractAddress": "0xBDb61affDA4490B9e962b542cfb212ec50D1AC0C",
+    "transactionIndex": 0,
+    "gasUsed": "630068",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xf193181f77cbb7348ba16faaa1476b8b17303ac5ff97c4177b8178361d5f94f2",
+    "transactionHash": "0xb0a1aabc0a84f42c8c2b791414cd14173f6c5fe7597d3c067a4830dcc83cca6b",
+    "logs": [],
+    "blockNumber": 8997693,
+    "cumulativeGasUsed": "630068",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 2,
+  "solcInputHash": "74ddf01c7cd3a0953d29c20d5704be36",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"BurnFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"ExceedMintLimit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAuthModule\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidChainId\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidCodeHash\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidCommands\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidGovernance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidMintLimiter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSetMintLimitsParams\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidTokenDeployer\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"MintFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotGovernance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotMintLimiter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotProxy\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotSelf\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetupFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"TokenContractDoesNotExist\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"TokenDeployFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"TokenDoesNotExist\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationContractAddress\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"}],\"name\":\"ContractCall\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"sourceTxHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceEventIndex\",\"type\":\"uint256\"}],\"name\":\"ContractCallApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"sourceTxHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceEventIndex\",\"type\":\"uint256\"}],\"name\":\"ContractCallApprovedWithMint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"}],\"name\":\"ContractCallExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationContractAddress\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"ContractCallWithToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"}],\"name\":\"Executed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousGovernance\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"GovernanceTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousGovernance\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"MintLimiterTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"newOperatorsData\",\"type\":\"bytes\"}],\"name\":\"OperatorshipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenAddresses\",\"type\":\"address\"}],\"name\":\"TokenDeployed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"TokenMintLimitUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationAddress\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TokenSent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"allTokensFrozen\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"authModule\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contractAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"}],\"name\":\"callContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contractAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"callContractWithToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"contractId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"execute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"implementation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"}],\"name\":\"isCommandExecuted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"isContractCallAndMintApproved\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"}],\"name\":\"isContractCallApproved\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"mintLimiter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"destinationAddress\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"sendToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string[]\",\"name\":\"symbols\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"limits\",\"type\":\"uint256[]\"}],\"name\":\"setTokenMintLimits\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"setup\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"tokenAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenDeployer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"tokenFrozen\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"tokenMintAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"name\":\"tokenMintLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"transferGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"transferMintLimiter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"newImplementationCodeHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"setupParams\",\"type\":\"bytes\"}],\"name\":\"upgrade\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"}],\"name\":\"validateContractCall\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"payloadHash\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"validateContractCallAndMint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"contractId()\":{\"details\":\"Meant to be overridden in derived contracts.\",\"returns\":{\"_0\":\"bytes32 The contract ID\"}},\"governance()\":{\"returns\":{\"_0\":\"address of the governance\"}},\"mintLimiter()\":{\"returns\":{\"_0\":\"address of the mint limiter\"}},\"transferGovernance(address)\":{\"params\":{\"newGovernance\":\"The new governance address\"}},\"transferMintLimiter(address)\":{\"params\":{\"newGovernance\":\"The new mint limiter address\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"contractId()\":{\"notice\":\"Returns the contract ID. It can be used as a check during upgrades.\"},\"governance()\":{\"notice\":\"Returns the governance address.\"},\"mintLimiter()\":{\"notice\":\"Returns the mint limiter address.\"},\"transferGovernance(address)\":{\"notice\":\"Transfer the governance role to another address.\"},\"transferMintLimiter(address)\":{\"notice\":\"Transfer the mint limiter role to another address.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/MockAxelarGateway.sol\":\"MockAxelarGateway\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IGovernable } from './IGovernable.sol';\\nimport { IImplementation } from './IImplementation.sol';\\n\\ninterface IAxelarGateway is IImplementation, IGovernable {\\n    /**********\\\\\\n    |* Errors *|\\n    \\\\**********/\\n\\n    error NotSelf();\\n    error InvalidCodeHash();\\n    error SetupFailed();\\n    error InvalidAuthModule();\\n    error InvalidTokenDeployer();\\n    error InvalidAmount();\\n    error InvalidChainId();\\n    error InvalidCommands();\\n    error TokenDoesNotExist(string symbol);\\n    error TokenAlreadyExists(string symbol);\\n    error TokenDeployFailed(string symbol);\\n    error TokenContractDoesNotExist(address token);\\n    error BurnFailed(string symbol);\\n    error MintFailed(string symbol);\\n    error InvalidSetMintLimitsParams();\\n    error ExceedMintLimit(string symbol);\\n\\n    /**********\\\\\\n    |* Events *|\\n    \\\\**********/\\n\\n    event TokenSent(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationAddress,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event ContractCall(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload\\n    );\\n\\n    event ContractCallWithToken(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event Executed(bytes32 indexed commandId);\\n\\n    event TokenDeployed(string symbol, address tokenAddresses);\\n\\n    event ContractCallApproved(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event ContractCallApprovedWithMint(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event ContractCallExecuted(bytes32 indexed commandId);\\n\\n    event TokenMintLimitUpdated(string symbol, uint256 limit);\\n\\n    event OperatorshipTransferred(bytes newOperatorsData);\\n\\n    event Upgraded(address indexed implementation);\\n\\n    /********************\\\\\\n    |* Public Functions *|\\n    \\\\********************/\\n\\n    function sendToken(\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function callContract(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload\\n    ) external;\\n\\n    function callContractWithToken(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function isContractCallApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash\\n    ) external view returns (bool);\\n\\n    function isContractCallAndMintApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external view returns (bool);\\n\\n    function validateContractCall(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash\\n    ) external returns (bool);\\n\\n    function validateContractCallAndMint(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /***********\\\\\\n    |* Getters *|\\n    \\\\***********/\\n\\n    function authModule() external view returns (address);\\n\\n    function tokenDeployer() external view returns (address);\\n\\n    function tokenMintLimit(string memory symbol) external view returns (uint256);\\n\\n    function tokenMintAmount(string memory symbol) external view returns (uint256);\\n\\n    function allTokensFrozen() external view returns (bool);\\n\\n    function implementation() external view returns (address);\\n\\n    function tokenAddresses(string memory symbol) external view returns (address);\\n\\n    function tokenFrozen(string memory symbol) external view returns (bool);\\n\\n    function isCommandExecuted(bytes32 commandId) external view returns (bool);\\n\\n    /************************\\\\\\n    |* Governance Functions *|\\n    \\\\************************/\\n\\n    function setTokenMintLimits(string[] calldata symbols, uint256[] calldata limits) external;\\n\\n    function upgrade(\\n        address newImplementation,\\n        bytes32 newImplementationCodeHash,\\n        bytes calldata setupParams\\n    ) external;\\n\\n    /**********************\\\\\\n    |* External Functions *|\\n    \\\\**********************/\\n\\n    function execute(bytes calldata input) external;\\n}\\n\",\"keccak256\":\"0x98a66ec4f5c9e1e444ed39be682195834417cf2cd160db0c56f60e225c826be4\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IContractIdentifier.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n// General interface for upgradable contracts\\ninterface IContractIdentifier {\\n    /**\\n     * @notice Returns the contract ID. It can be used as a check during upgrades.\\n     * @dev Meant to be overridden in derived contracts.\\n     * @return bytes32 The contract ID\\n     */\\n    function contractId() external pure returns (bytes32);\\n}\\n\",\"keccak256\":\"0x21a94655f7f1ed3d7188bd38ce6187892c615b80f9a74e123cbc38113d855a35\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IGovernable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title IGovernable Interface\\n * @notice This is an interface used by the AxelarGateway contract to manage governance and mint limiter roles.\\n */\\ninterface IGovernable {\\n    error NotGovernance();\\n    error NotMintLimiter();\\n    error InvalidGovernance();\\n    error InvalidMintLimiter();\\n\\n    event GovernanceTransferred(address indexed previousGovernance, address indexed newGovernance);\\n    event MintLimiterTransferred(address indexed previousGovernance, address indexed newGovernance);\\n\\n    /**\\n     * @notice Returns the governance address.\\n     * @return address of the governance\\n     */\\n    function governance() external view returns (address);\\n\\n    /**\\n     * @notice Returns the mint limiter address.\\n     * @return address of the mint limiter\\n     */\\n    function mintLimiter() external view returns (address);\\n\\n    /**\\n     * @notice Transfer the governance role to another address.\\n     * @param newGovernance The new governance address\\n     */\\n    function transferGovernance(address newGovernance) external;\\n\\n    /**\\n     * @notice Transfer the mint limiter role to another address.\\n     * @param newGovernance The new mint limiter address\\n     */\\n    function transferMintLimiter(address newGovernance) external;\\n}\\n\",\"keccak256\":\"0x686c534975bfc4e00f89be5e4a779a41a63f7c5fc204429c839bcdbf09584fd0\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IImplementation.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IContractIdentifier } from './IContractIdentifier.sol';\\n\\ninterface IImplementation is IContractIdentifier {\\n    error NotProxy();\\n\\n    function setup(bytes calldata data) external;\\n}\\n\",\"keccak256\":\"0xa7f275514d44bec3ab8ab8c768736329174d7cc6c5cd329c3509a66bce9cd468\",\"license\":\"MIT\"},\"contracts/MockAxelarGateway.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\nimport {IAxelarGateway} from \\\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol\\\";\\n\\ncontract MockAxelarGateway is IAxelarGateway {\\n\\tfunction contractId() external pure override returns (bytes32) {}\\n\\n\\tfunction setup(bytes calldata data) external override {}\\n\\n\\tfunction governance() external view override returns (address) {}\\n\\n\\tfunction mintLimiter() external view override returns (address) {}\\n\\n\\tfunction transferGovernance(address newGovernance) external override {}\\n\\n\\tfunction transferMintLimiter(address newGovernance) external override {}\\n\\n\\tfunction sendToken(\\n\\t\\tstring calldata destinationChain,\\n\\t\\tstring calldata destinationAddress,\\n\\t\\tstring calldata symbol,\\n\\t\\tuint256 amount\\n\\t) external override {}\\n\\n\\tfunction callContract(\\n\\t\\tstring calldata destinationChain,\\n\\t\\tstring calldata contractAddress,\\n\\t\\tbytes calldata payload\\n\\t) external override {}\\n\\n\\tfunction callContractWithToken(\\n\\t\\tstring calldata destinationChain,\\n\\t\\tstring calldata contractAddress,\\n\\t\\tbytes calldata payload,\\n\\t\\tstring calldata symbol,\\n\\t\\tuint256 amount\\n\\t) external override {\\n\\t}\\n\\n\\tfunction isContractCallApproved(\\n\\t\\tbytes32 commandId,\\n\\t\\tstring calldata sourceChain,\\n\\t\\tstring calldata sourceAddress,\\n\\t\\taddress contractAddress,\\n\\t\\tbytes32 payloadHash\\n\\t) external view override returns (bool) {\\n\\t\\treturn true;\\n\\t}\\n\\n\\tfunction isContractCallAndMintApproved(\\n\\t\\tbytes32 commandId,\\n\\t\\tstring calldata sourceChain,\\n\\t\\tstring calldata sourceAddress,\\n\\t\\taddress contractAddress,\\n\\t\\tbytes32 payloadHash,\\n\\t\\tstring calldata symbol,\\n\\t\\tuint256 amount\\n\\t) external view override returns (bool) {\\n\\t\\treturn true;\\n\\t}\\n\\n\\tfunction validateContractCall(\\n\\t\\tbytes32 commandId,\\n\\t\\tstring calldata sourceChain,\\n\\t\\tstring calldata sourceAddress,\\n\\t\\tbytes32 payloadHash\\n\\t) external override returns (bool) {\\n\\t\\treturn true;\\n\\t}\\n\\n\\tfunction validateContractCallAndMint(\\n\\t\\tbytes32 commandId,\\n\\t\\tstring calldata sourceChain,\\n\\t\\tstring calldata sourceAddress,\\n\\t\\tbytes32 payloadHash,\\n\\t\\tstring calldata symbol,\\n\\t\\tuint256 amount\\n\\t) external override returns (bool) {\\n\\t\\treturn true;\\n\\t}\\n\\n\\tfunction authModule() external view override returns (address) {}\\n\\n\\tfunction tokenDeployer() external view override returns (address) {}\\n\\n\\tfunction tokenMintLimit(\\n\\t\\tstring memory symbol\\n\\t) external view override returns (uint256) {}\\n\\n\\tfunction tokenMintAmount(\\n\\t\\tstring memory symbol\\n\\t) external view override returns (uint256) {}\\n\\n\\tfunction allTokensFrozen() external view override returns (bool) {}\\n\\n\\tfunction implementation() external view override returns (address) {}\\n\\n\\tfunction tokenAddresses(\\n\\t\\tstring memory symbol\\n\\t) external view override returns (address) {}\\n\\n\\tfunction tokenFrozen(\\n\\t\\tstring memory symbol\\n\\t) external view override returns (bool) {}\\n\\n\\tfunction isCommandExecuted(\\n\\t\\tbytes32 commandId\\n\\t) external view override returns (bool) {}\\n\\n\\tfunction setTokenMintLimits(\\n\\t\\tstring[] calldata symbols,\\n\\t\\tuint256[] calldata limits\\n\\t) external override {}\\n\\n\\tfunction upgrade(\\n\\t\\taddress newImplementation,\\n\\t\\tbytes32 newImplementationCodeHash,\\n\\t\\tbytes calldata setupParams\\n\\t) external override {}\\n\\n\\tfunction execute(bytes calldata input) external override {\\n    }\\n}\",\"keccak256\":\"0x275b55dc1df121897aad240ef058297098af8882bc75e7a85e2f97bfd6b2cea6\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610a71806100206000396000f3fe608060405234801561001057600080fd5b50600436106101735760003560e01c80637b1b769e116100de578063b541708411610097578063cec7b35911610071578063cec7b359146101d4578063d26ff210146102d6578063d38bfff414610228578063f6a5f9f5146102e457600080fd5b8063b54170841461029f578063bc00c216146102b8578063c82fe87a1461020d57600080fd5b80637b1b769e146102675780638291286c14610275578063935b13f61461027c5780639ded06df14610178578063a3499c731461028a578063aa1e1f0a1461029857600080fd5b806341d8f26b1161013057806341d8f26b146102285780635aa6e6751461020d5780635c60da1b1461020d5780635f6970c31461023957806364940c561461020d57806367ace8eb1461025357600080fd5b806309c5eabe146101785780631876eed91461018c5780631c92115f146101be578063269eb65e146101d457806326ef699d146101f65780632a2dae0a1461020d575b600080fd5b61018a610186366004610347565b5050565b005b6101a961019a366004610388565b60019998505050505050505050565b60405190151581526020015b60405180910390f35b61018a6101cc36600461043c565b505050505050565b6101e86101e23660046104eb565b50600090565b6040519081526020016101b5565b61018a61020436600461059b565b50505050505050565b60005b6040516001600160a01b0390911681526020016101b5565b61018a610236366004610659565b50565b6101a961024736600461067b565b60019695505050505050565b61018a610261366004610740565b50505050565b6101a96101e23660046104eb565b60006101e8565b6102106101e23660046104eb565b61018a6102613660046107ab565b60006101a9565b61018a6102ad3660046107f8565b505050505050505050565b6101a96102c63660046108c3565b60019a9950505050505050505050565b6101a96101e236600461098f565b6101a96102f23660046109a8565b6001979650505050505050565b60008083601f84011261031157600080fd5b5081356001600160401b0381111561032857600080fd5b60208301915083602082850101111561034057600080fd5b9250929050565b6000806020838503121561035a57600080fd5b82356001600160401b0381111561037057600080fd5b61037c858286016102ff565b90969095509350505050565b600080600080600080600080600060c08a8c0312156103a657600080fd5b8935985060208a01356001600160401b03808211156103c457600080fd5b6103d08d838e016102ff565b909a50985060408c01359150808211156103e957600080fd5b6103f58d838e016102ff565b909850965060608c0135955060808c013591508082111561041557600080fd5b506104228c828d016102ff565b9a9d999c50979a9699959894979660a00135949350505050565b6000806000806000806060878903121561045557600080fd5b86356001600160401b038082111561046c57600080fd5b6104788a838b016102ff565b9098509650602089013591508082111561049157600080fd5b61049d8a838b016102ff565b909650945060408901359150808211156104b657600080fd5b506104c389828a016102ff565b979a9699509497509295939492505050565b634e487b7160e01b600052604160045260246000fd5b6000602082840312156104fd57600080fd5b81356001600160401b038082111561051457600080fd5b818401915084601f83011261052857600080fd5b81358181111561053a5761053a6104d5565b604051601f8201601f19908116603f01168101908382118183101715610562576105626104d5565b8160405282815287602084870101111561057b57600080fd5b826020860160208301376000928101602001929092525095945050505050565b60008060008060008060006080888a0312156105b657600080fd5b87356001600160401b03808211156105cd57600080fd5b6105d98b838c016102ff565b909950975060208a01359150808211156105f257600080fd5b6105fe8b838c016102ff565b909750955060408a013591508082111561061757600080fd5b506106248a828b016102ff565b989b979a50959894979596606090950135949350505050565b80356001600160a01b038116811461065457600080fd5b919050565b60006020828403121561066b57600080fd5b6106748261063d565b9392505050565b6000806000806000806080878903121561069457600080fd5b8635955060208701356001600160401b03808211156106b257600080fd5b6106be8a838b016102ff565b909750955060408901359150808211156106d757600080fd5b506106e489828a016102ff565b979a9699509497949695606090950135949350505050565b60008083601f84011261070e57600080fd5b5081356001600160401b0381111561072557600080fd5b6020830191508360208260051b850101111561034057600080fd5b6000806000806040858703121561075657600080fd5b84356001600160401b038082111561076d57600080fd5b610779888389016106fc565b9096509450602087013591508082111561079257600080fd5b5061079f878288016106fc565b95989497509550505050565b600080600080606085870312156107c157600080fd5b6107ca8561063d565b93506020850135925060408501356001600160401b038111156107ec57600080fd5b61079f878288016102ff565b600080600080600080600080600060a08a8c03121561081657600080fd5b89356001600160401b038082111561082d57600080fd5b6108398d838e016102ff565b909b50995060208c013591508082111561085257600080fd5b61085e8d838e016102ff565b909950975060408c013591508082111561087757600080fd5b6108838d838e016102ff565b909750955060608c013591508082111561089c57600080fd5b506108a98c828d016102ff565b9a9d999c50979a9699959894979660800135949350505050565b60008060008060008060008060008060e08b8d0312156108e257600080fd5b8a35995060208b01356001600160401b038082111561090057600080fd5b61090c8e838f016102ff565b909b50995060408d013591508082111561092557600080fd5b6109318e838f016102ff565b909950975087915061094560608e0161063d565b965060808d0135955060a08d013591508082111561096257600080fd5b5061096f8d828e016102ff565b9150809450508092505060c08b013590509295989b9194979a5092959850565b6000602082840312156109a157600080fd5b5035919050565b600080600080600080600060a0888a0312156109c357600080fd5b8735965060208801356001600160401b03808211156109e157600080fd5b6109ed8b838c016102ff565b909850965060408a0135915080821115610a0657600080fd5b50610a138a828b016102ff565b9095509350610a2690506060890161063d565b9150608088013590509295989194975092955056fea2646970667358221220dd3c9b2748df2d0fb38588084c90f39a638703ed5e2e2a85a6003ed4641f5c5964736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101735760003560e01c80637b1b769e116100de578063b541708411610097578063cec7b35911610071578063cec7b359146101d4578063d26ff210146102d6578063d38bfff414610228578063f6a5f9f5146102e457600080fd5b8063b54170841461029f578063bc00c216146102b8578063c82fe87a1461020d57600080fd5b80637b1b769e146102675780638291286c14610275578063935b13f61461027c5780639ded06df14610178578063a3499c731461028a578063aa1e1f0a1461029857600080fd5b806341d8f26b1161013057806341d8f26b146102285780635aa6e6751461020d5780635c60da1b1461020d5780635f6970c31461023957806364940c561461020d57806367ace8eb1461025357600080fd5b806309c5eabe146101785780631876eed91461018c5780631c92115f146101be578063269eb65e146101d457806326ef699d146101f65780632a2dae0a1461020d575b600080fd5b61018a610186366004610347565b5050565b005b6101a961019a366004610388565b60019998505050505050505050565b60405190151581526020015b60405180910390f35b61018a6101cc36600461043c565b505050505050565b6101e86101e23660046104eb565b50600090565b6040519081526020016101b5565b61018a61020436600461059b565b50505050505050565b60005b6040516001600160a01b0390911681526020016101b5565b61018a610236366004610659565b50565b6101a961024736600461067b565b60019695505050505050565b61018a610261366004610740565b50505050565b6101a96101e23660046104eb565b60006101e8565b6102106101e23660046104eb565b61018a6102613660046107ab565b60006101a9565b61018a6102ad3660046107f8565b505050505050505050565b6101a96102c63660046108c3565b60019a9950505050505050505050565b6101a96101e236600461098f565b6101a96102f23660046109a8565b6001979650505050505050565b60008083601f84011261031157600080fd5b5081356001600160401b0381111561032857600080fd5b60208301915083602082850101111561034057600080fd5b9250929050565b6000806020838503121561035a57600080fd5b82356001600160401b0381111561037057600080fd5b61037c858286016102ff565b90969095509350505050565b600080600080600080600080600060c08a8c0312156103a657600080fd5b8935985060208a01356001600160401b03808211156103c457600080fd5b6103d08d838e016102ff565b909a50985060408c01359150808211156103e957600080fd5b6103f58d838e016102ff565b909850965060608c0135955060808c013591508082111561041557600080fd5b506104228c828d016102ff565b9a9d999c50979a9699959894979660a00135949350505050565b6000806000806000806060878903121561045557600080fd5b86356001600160401b038082111561046c57600080fd5b6104788a838b016102ff565b9098509650602089013591508082111561049157600080fd5b61049d8a838b016102ff565b909650945060408901359150808211156104b657600080fd5b506104c389828a016102ff565b979a9699509497509295939492505050565b634e487b7160e01b600052604160045260246000fd5b6000602082840312156104fd57600080fd5b81356001600160401b038082111561051457600080fd5b818401915084601f83011261052857600080fd5b81358181111561053a5761053a6104d5565b604051601f8201601f19908116603f01168101908382118183101715610562576105626104d5565b8160405282815287602084870101111561057b57600080fd5b826020860160208301376000928101602001929092525095945050505050565b60008060008060008060006080888a0312156105b657600080fd5b87356001600160401b03808211156105cd57600080fd5b6105d98b838c016102ff565b909950975060208a01359150808211156105f257600080fd5b6105fe8b838c016102ff565b909750955060408a013591508082111561061757600080fd5b506106248a828b016102ff565b989b979a50959894979596606090950135949350505050565b80356001600160a01b038116811461065457600080fd5b919050565b60006020828403121561066b57600080fd5b6106748261063d565b9392505050565b6000806000806000806080878903121561069457600080fd5b8635955060208701356001600160401b03808211156106b257600080fd5b6106be8a838b016102ff565b909750955060408901359150808211156106d757600080fd5b506106e489828a016102ff565b979a9699509497949695606090950135949350505050565b60008083601f84011261070e57600080fd5b5081356001600160401b0381111561072557600080fd5b6020830191508360208260051b850101111561034057600080fd5b6000806000806040858703121561075657600080fd5b84356001600160401b038082111561076d57600080fd5b610779888389016106fc565b9096509450602087013591508082111561079257600080fd5b5061079f878288016106fc565b95989497509550505050565b600080600080606085870312156107c157600080fd5b6107ca8561063d565b93506020850135925060408501356001600160401b038111156107ec57600080fd5b61079f878288016102ff565b600080600080600080600080600060a08a8c03121561081657600080fd5b89356001600160401b038082111561082d57600080fd5b6108398d838e016102ff565b909b50995060208c013591508082111561085257600080fd5b61085e8d838e016102ff565b909950975060408c013591508082111561087757600080fd5b6108838d838e016102ff565b909750955060608c013591508082111561089c57600080fd5b506108a98c828d016102ff565b9a9d999c50979a9699959894979660800135949350505050565b60008060008060008060008060008060e08b8d0312156108e257600080fd5b8a35995060208b01356001600160401b038082111561090057600080fd5b61090c8e838f016102ff565b909b50995060408d013591508082111561092557600080fd5b6109318e838f016102ff565b909950975087915061094560608e0161063d565b965060808d0135955060a08d013591508082111561096257600080fd5b5061096f8d828e016102ff565b9150809450508092505060c08b013590509295989b9194979a5092959850565b6000602082840312156109a157600080fd5b5035919050565b600080600080600080600060a0888a0312156109c357600080fd5b8735965060208801356001600160401b03808211156109e157600080fd5b6109ed8b838c016102ff565b909850965060408a0135915080821115610a0657600080fd5b50610a138a828b016102ff565b9095509350610a2690506060890161063d565b9150608088013590509295989194975092955056fea2646970667358221220dd3c9b2748df2d0fb38588084c90f39a638703ed5e2e2a85a6003ed4641f5c5964736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "contractId()": {
+        "details": "Meant to be overridden in derived contracts.",
+        "returns": {
+          "_0": "bytes32 The contract ID"
+        }
+      },
+      "governance()": {
+        "returns": {
+          "_0": "address of the governance"
+        }
+      },
+      "mintLimiter()": {
+        "returns": {
+          "_0": "address of the mint limiter"
+        }
+      },
+      "transferGovernance(address)": {
+        "params": {
+          "newGovernance": "The new governance address"
+        }
+      },
+      "transferMintLimiter(address)": {
+        "params": {
+          "newGovernance": "The new mint limiter address"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "contractId()": {
+        "notice": "Returns the contract ID. It can be used as a check during upgrades."
+      },
+      "governance()": {
+        "notice": "Returns the governance address."
+      },
+      "mintLimiter()": {
+        "notice": "Returns the mint limiter address."
+      },
+      "transferGovernance(address)": {
+        "notice": "Transfer the governance role to another address."
+      },
+      "transferMintLimiter(address)": {
+        "notice": "Transfer the mint limiter role to another address."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
