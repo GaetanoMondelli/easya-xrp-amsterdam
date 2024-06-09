@@ -1,25 +1,30 @@
 # Description
 
-In our previous hackathon, we introduced XTF, a solution for creating decentralized ETFs. This enables users to lock tokens across various chains in buckets and fractionalize them into shares in the EVM Sidechain Ledger.
+In our previous hackathon in London, we introduced XTF, a solution for creating decentralized ETFs. This enables users to lock tokens across various chains into buckets and fractionalize them into shares on the EVM Sidechain Ledger.
 
-During these months, we received a lot of positive feedback. However, one recurring concern from the community was about the centralization risks in selecting the list of tokens in the index.
+During these months, we received a lot of positive feedback. However, one recurring concern from the community was about the centralization risks in selecting the list of tokens in the index. Initially, we considered using a similar strategy to our competitors by partnering with trusted third parties. However, we recognized the need to develop a more robust and decentralized solution to mitigate collusion risks.
 
-Taking this feedback to heart, in this hackathon, we worked on a prototype to enhance decentralization when determining indexes. 
-Our solution uses on-chain data from the XLS-47d price oracle to aggregate data from multiple sources and port them to the EVM Side Chain through Axelar’s General Message Passing (GMP) protocol. The XLS-47d get_aggregate_price function retrieves the mean, median, and average from multiple sources, mitigating collusion risks related to a single entity source.
+Taking this feedback to heart, in this hackathon, we worked on a prototype to enhance decentralization when determining indexes.
 
-For EVM assets we pull onchan data about liquidity using the `liquidity` method of IUniswapPool standard interface and supply data using the totalSupply method of ERC20 tokens.  
+We decided to calculate market caps on our mainchain (XRP EVM SIDECHAIN) using on-chain data from both EVM and XRPL, aggregating on-chain prices, supplies, and liquidity.
 
-For XRP assets we fetch data about liquidity by using the `book_offers` command and comparing our token to reference coins like XRP/USD, and supply data through the account_lines command for each XRP token.
+Our mainchain tracks all asset metrics, and we securely communicate external on-chain data to our mainchain using Axelar’s General Message Passing (GMP) protocol.
 
-We employ the Axelar Bridge to propagate prices, supplies and liquidity of XRP tokens to the EVM sidechain, ensuring consistent metrics with EVM tokens that are used to calculate the market capitalization:
+For XRP assets, we fetch data about liquidity using the `book_offers command`, comparing our token to reference coins like XRP/USD, and supply data through the `account_lines` command for each XRP token asset. We collect prices from multiple oracle sources, as described in the XLS-47d, and port them to the EVM Sidechain through Axelar’s GMP protocol.
 
-Market Cap = totalSupply * AVG(prize) for all Token T with liquidity(T)> liquidity_threshold) 
+For EVM assets, we pull on-chain data about liquidity using the `liquidity` method of the `IUniswapV3Pool` standard interface and supply data using the `totalSupply` method of ERC20 tokens. We send this data to our EVM mainchain using GMP’s callContract and contractExecutor. For prices, we use the standard IAggregatorPriceV3 from Chainlink.
+
+In both cases, we employ the Axelar Bridge to propagate prices, supplies, and liquidity to our mainchain, the EVM sidechain, ensuring consistent metrics with EVM tokens that are used to calculate market capitalization:
+
 
 ![fromula](./formula3.png)
 
-A smart contract in the EVM Sidechai, IndexAggreagtor stores this information about assets and persist it in an index when a new XTF fund needs to be created.
+The main smart contract on the mainchain is the IndexAggregator, which stores this information about assets and persists it in an index when a new XTF fund needs to be created.
 
-By defining our indexes using on-chain data and aggregating secure oracle data rather than third-party inputs, we aim to provide a more trustworthy solution.
+The weighting can be uniform among selected assets or market cap-weighted, where assets with larger market caps have a higher percentage in the index.
+
+By defining our indexes using on-chain data and aggregating secure oracle data rather than third-party inputs, we want to provide a more trustworthy solution.
+
 
 
 ![arch](./arch.png)
@@ -27,7 +32,9 @@ By defining our indexes using on-chain data and aggregating secure oracle data r
 
 # Technical Description
 
-The XTF protocol functions similarly to a traditional finance (TradFi) ETF. A TradFi ETF compiles a list of assets (an index), assigns weights to them, allocates a proportional amount of each asset into a bucket based on these weights, and then fractionalizes the bucket into ETF shares, representing ownership of the bucket.
+
+The XTF protocol functions similarly to a TradFi ETF. 
+A TradFi ETF compiles a list of assets (an index), assigns weights to them, allocates a proportional amount of each asset into a bucket based on these weights, and then fractionalizes the bucket into ETF shares, representing ownership of the bucket.
 
 Similarly, the XTF protocol requires an array of TokenInfo in its contract constructor. This TokenInfo array contains crucial details such as:
 - Token address
@@ -37,28 +44,28 @@ Similarly, the XTF protocol requires an array of TokenInfo in its contract const
 
 These details enable the XTF protocol to accurately manage and fractionalize the assets within its ecosystem.
 
-
 **The challenge is to determine, in a fair and collusion-resistant way, who decides the list of tokens and their quantities.**
-
-Competitors in the space likeallows the first one to have the issuer known as the 
 
 Competitors in the space, such as  [TokenSets](https://www.tokensets.com/#/explore) and [IndexCoop](https://indexcoop.com/), rely on different methods for defining token lists. TokenSets allows the issuer, known as the manager, to define the token lists, with users trusting the manager based on their track record. IndexCoop relies on trusted parties like Bankless and DeFi Pulse to curate the token lists. However, these methods expose users to collusion risks.
 
-Our solution aims to recreate on-chain operations to determine a proper index. We collect the following metrics over a time interval  t , divided into smaller intervals  t_x :
+Our solution aims to recreate on-chain operations to determine a proper index. 
+We collect the following metrics over a time interval  t , divided into smaller intervals  t_x :
 
 See the method: (see `collectPriceFeeds()` method)
 - Total Supply: Circulation of the tokens
 - Average Price: Average price over the time interval  t_1 
+- Liquidty: Metric on how availble a token is ona. chain
 
-We ensure an index can only be calculated if a sufficient number of data points are collected, maintaining data reliability. Additionally, we have a bribe system in place to reward those who call the methods to pull the data within the required intervals, incentivizing timely and accurate data collection. 
+We ensure an index can only be calculated if a sufficient number of data points are collected, maintaining data reliability. 
+
+Additionally, we have a bribe system in place to reward those who call the methods to pull the data within the required intervals, incentivizing timely and accurate data collection. 
 
 
 ## DATA COLLECTION
 
-While the main contract that tracks all data and liquidity and persists the index sits on the **XRP EVM SIDECHAIN** different contracts and systems are in place to collect on-chain data for assets sitting on other blockchains.  Data collection is different depending on the blockchain technology in which are the assets. 
+While the main contract that tracks all data, liquidity, and persists the index resides on the **XRP EVM SIDECHAIN**, different contracts and systems are in place to collect on-chain data for assets on other blockchains. Data collection varies depending on the blockchain technology of the assets.
 
-If the assets are on EVM chains data collections is done interactign with contracts directly:
-
+For assets on EVM chains, data collection is done by interacting directly with contracts.
 
 - Total Supply:  `IER20(tokenInfo[i]._address).totalSupply()` method
 - Price(n): `(, int256 answer, , , )=AggregatorV3Interface(tokenInfo[i]._aggregator).latestRoundData`();
@@ -67,7 +74,7 @@ If the assets are on EVM chains data collections is done interactign with contra
 
 Once we have enough samples we can call the `updateTokenParams()` to process the collected data and calculate the aggregated data used for the index metric calculation.
 
-If the assets are on not the mainchain (not on **XRP EVM SIDECHAIN**) the aggregated on-chain data (supplies,liquidity are sent to mainchain through a GMP call of Axelar Bridge).
+If the assets are on not the mainchain (not on **XRP EVM SIDECHAIN**) the aggregated on-chain data (e.g. supplies and liquidity) are sent to mainchain through a GMP call of Axelar Bridge.
 
 ```
         bytes memory payload = abi.encode(
@@ -85,7 +92,7 @@ If the assets are on not the mainchain (not on **XRP EVM SIDECHAIN**) the aggreg
 
 ```
 
-If the assets are on the mainchain, i.e. on the **XRP EVM SIDECHAIN**, we processed messages from the Axelar Bridge and we store updated metrics in the smart contract.
+If the assets are on the mainchain, i.e. on the **XRP EVM SIDECHAIN**, we processed messages from other chains through Axelar Gateway and we store updated metrics in the main smart contract.
 
 As per Axelar docs we implemented the `execute` method that can be executed only bt the Axelar Gaetway
 
@@ -107,59 +114,25 @@ As per Axelar docs we implemented the `execute` method that can be executed only
     }
 ```
 
-For XRPL ledgers type, data collection is made as follows:
-A list of meaningul tokens is downloaded by `https://xrpl.to`.
-We then interact with a `rippled/clio` node of at leaset version `v2.0.21` and issue comamnds to get the metrics:
+
+For XRPL ledger types, data collection is performed as follows:
+
+1. Token List: A list of meaningful tokens is downloaded from https://xrpl.to.
+2. Node Interaction: We interact with a rippled/clio node of at least version v2.0.21 and issue commands to get the metrics.
+
 
 Note that most of the public JSON-RPC available do not allow to send write commands or are not comaptibile with `v2.0.21` that supports [XLS-47d](https://github.com/XRPLF/XRPL-Standards/discussions/129). This unfortuantely does not allow to even create oracles, with the `createOracle` command.
 
-**NOTE:***: For this reason we have mocking those XRPL node endpoints, making sure the responses were the same as the ones we would have received from a node.
-See `packages/nextjs/pages/api` for the mock endpoints implementations.
+**IMPORTANT NOTE:***: Due to these constraints, we have mocked these XRPL node endpoints to ensure the responses match those from an actual node. See packages/nextjs/pages/api for the mock endpoint implementations.
 
-- Total Supply: for every token, we get the supply using the `account_lines` command on the issuer account to get the total supply of the token as the - (balance). Balance of the issuer should be negative.
-- mean(price): For every token, we use `get_aggregated_price` from [XLS-47d](https://github.com/XRPLF/XRPL-Standards/discussions/129) passing a list of trusted oracles**. To be consistent with EVM chain solution we use `USD` as price unit.
-- Liquidity of Tokens: For every token, we get the Liquidity using the `book_offers` command on the issuer account to get the orders of the token related to a reference token (e.g. XRP). We sum all the orders to get the total liquidity of the token.
-- Push: Finally we push data to the MainChain, i.e. **XRP EVM SIDECHAIN** using the Axelor Bridge by adding meta data using a `payment` command
+- Total Supply: For each token, we use the account_lines command on the issuer account to get the total supply (balance). The balance of the issuer should be negative.
+- Mean Price: For each token, we use get_aggregated_price from XLS-47d, passing a list of trusted oracles. To maintain consistency with the EVM chain solution, we use USD as the price unit.
+- Liquidity of Tokens: For each token, we use the book_offers command on the issuer account to get the orders of the token related to a reference token (e.g., XRP). We sum all the orders to determine the total liquidity of the token.
+- Data Push: Finally, we push the data to the mainchain, i.e., the XRP EVM SIDECHAIN, using the Axelar Bridge. This is done by adding metadata using a payment command.
 
+Please see docs here for XRPL integration https://opensource.ripple.com/docs/axelar/call-a-smart-contract-function/ and here for EVM integration https://docs.axelar.dev/
 
-
-In this case the oracles have been pre vetted by the protocol ownwer as in this example **
-```
-{
-  "method": "get_aggregate_price",
-  "params": [
-    {
-      "ledger_index": "current",
-      "base_asset": "XRP",
-      "quote_asset": "USD",
-      "trim": 20,
-      "oracles": [
-        {
-          "account": "rp047ow9WcPmnNpVHMQV5A4BF6vaL9Abm6",
-          "oracle_document_id": 34
-        },
-        {
-          "account": "rp147ow9WcPmnNpVHMQV5A4BF6vaL9Abm7",
-          "oracle_document_id": 56
-        },
-        {
-          "account": "rp247ow9WcPmnNpVHMQV5A4BF6vaL9Abm8",
-          "oracle_document_id": 2
-        },
-        {
-          "account": "rp347ow9WcPmnNpVHMQV5A4BF6vaL9Abm9",
-          "oracle_document_id": 7
-        },
-        {
-          "account": "rp447ow9WcPmnNpVHMQV5A4BF6vaL9Abm0",
-          "oracle_document_id": 109
-        }
-      ]
-    }
-  ]
-}
-
-```
+## INDEX CALCULATION
 
 Finally if we have collected all the required data we can persist the index using `persistIndex`
 
@@ -170,9 +143,6 @@ Initial implementations included Solidity code to sort assets based on specific 
 I initially tried to apply as much filtering as possible by category, liquidity, and excluding certain chains, and explored various sorting algorithms based on the way we updated data.
 
 However, in the end, **I decided not to order the assets on-chain**. Instead, the contract records the prices and the time of the last update. When we need to define the index, we pull the data off-chain, **sort it off-chain**, and then pass it to the index function that verifies in *O(n)* time that the provided order is correct. This approach significantly reduces gas costs and ensures the system remains feasible and efficient
-
-
-
 
 ===
 
