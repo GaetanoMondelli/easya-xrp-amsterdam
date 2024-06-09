@@ -263,7 +263,7 @@ contract IndexAggregator is AxelarExecutable {
 		}
 	}
 
-	function getCollectPriceFeedsSeq() external returns (uint256[] memory) {
+	function getCollectPriceFeedsSeq() external returns (uint256) {
 		sequenceId += 1;
 		return sequenceId;
 	}
