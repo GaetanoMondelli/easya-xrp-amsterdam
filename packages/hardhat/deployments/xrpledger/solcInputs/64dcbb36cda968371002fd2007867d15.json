@@ -1,0 +1,38 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/IUniswapV3Pool.sol": {
+      "content": "// SPDX-License-Identifier: GPL-2.0-or-later\npragma solidity >=0.5.0;\n\n\n/// @title The interface for a Uniswap V3 Pool\n/// @notice A Uniswap pool facilitates swapping and automated market making between any two assets that strictly conform\n/// to the ERC20 specification\n/// @dev The pool interface is broken up into many smaller pieces\ninterface IUniswapV3Pool{\n    function liquidity() external view returns (uint128);\n    function token0() external view returns (address);\n    function token1() external view returns (address);\n}"
+    },
+    "contracts/MockUniswapV3Pool.sol": {
+      "content": "pragma solidity ^0.8.0;\n\nimport \"./IUniswapV3Pool.sol\";\n\ncontract MockUniswapV3Pool is IUniswapV3Pool {\n\n    address _token0;\n    address _token1;\n    uint128 _liquidity;\n    uint24 _fee;\n\n    constructor(\n        address t0,\n        address t1,\n        uint24 f,\n        uint128 l\n    ) {\n        _token0 = t0;\n        _token1 = t1;\n        _fee = f;\n        _liquidity = l;\n    }\n\n    function setLiquidity(uint128 l) external {\n        _liquidity = l;\n    }\n\n\tfunction liquidity() external view override returns (uint128) {\n        return _liquidity;\n    }\n\n\tfunction token0() external view override returns (address) {}\n\n\tfunction token1() external view override returns (address) {}\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

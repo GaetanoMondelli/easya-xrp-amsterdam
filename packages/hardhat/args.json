@@ -1,0 +1,333 @@
+[
+  [
+    {
+      "_symbol": "uni",
+      "_address": "0x2d09B2F2392F779F1DAe37Cff2A26454F2f5A205",
+      "_chainId": "11155111",
+      "_aggregator": "0x51A29d54F09200f064Dd8657498dcc9d5b3AFec7",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "mkr",
+      "_address": "0x5065510427b04E199c61dEeE91fD600520eA76Dd",
+      "_chainId": "11155111",
+      "_aggregator": "0xb973c1ff930f796Afe8fe25e50FFF59e986517Fa",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "aave",
+      "_address": "0x38D86878696D92a737471b5A0cF2D9170Cf97716",
+      "_chainId": "11155111",
+      "_aggregator": "0x8034216804c8aC6eEB305f8189FCfE78A9634552",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "snx",
+      "_address": "0xdf8F7169b3bab437DBcc66A85683Fb833125375E",
+      "_chainId": "11155111",
+      "_aggregator": "0xF46a790305B64f1f96767aD13E9131f571cf048a",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "comp",
+      "_address": "0x10A855E153BC5f64e1802Ca015aF00da7255235e",
+      "_chainId": "11155111",
+      "_aggregator": "0xCF98E09c3e42345571ecF5B4AF18110C9eafd465",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "solo",
+      "_address": "0xC4D4e40eDf442Be21FdEfeA42f92D20d5155d88D",
+      "_chainId": "11155111",
+      "_aggregator": "0xf70FEf57181b289D701B1888ca7063c9Ca851215",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "sec",
+      "_address": "0x923FD2B4B27132aBEbb21E0b8d58ddDD4F67aD41",
+      "_chainId": "11155111",
+      "_aggregator": "0x20444F322055E4fe86C60c33aA6D99C67191e515",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xrpaynet",
+      "_address": "0xC4E917dE3f75fc1D4b00577D2ECeE3FBcf1949bF",
+      "_chainId": "11155111",
+      "_aggregator": "0x43354ffb6acAF534c79050aAD23Cd625d86163aA",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xrph",
+      "_address": "0x96AaAd93F59d04f8f642Dc546afACe3A673C8F44",
+      "_chainId": "11155111",
+      "_aggregator": "0xd86AdfD802cd74203ED00892151cfe9c832ea29f",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "ghost",
+      "_address": "0xDfCDE448D6874395ff4Bc90cB309A009E4463BB0",
+      "_chainId": "11155111",
+      "_aggregator": "0x1e4Da9411e221AF1B5F03dFE4d3D8586fe4F9933",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "cny",
+      "_address": "0x05da0a50a0152E52939D216dc42aBfE2bbE45059",
+      "_chainId": "11155111",
+      "_aggregator": "0x71B422F08E6B2F46b0FA638f15bbdE4274a210D8",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xgo",
+      "_address": "0x73317A2FcC924D50b41d912f211F6bAEa148f77C",
+      "_chainId": "11155111",
+      "_aggregator": "0x8ce1ECD345b87f69366CaCE92353247d290387db",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "ctf",
+      "_address": "0xD5dcA95f992D254108f939f6C8705c640C0cb9ee",
+      "_chainId": "11155111",
+      "_aggregator": "0x1d9cD381ddF89eBcD60a373049828461Ed696F88",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "mxi",
+      "_address": "0x7340846AB500a6d442268203dD2E001b178f4dFc",
+      "_chainId": "11155111",
+      "_aggregator": "0x3A7897dCCFC5F61895fA0F6e560644B356125056",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "btckyc",
+      "_address": "0x2DA41D7A9d6214233fB13f1b4cA0A6fce14Fce60",
+      "_chainId": "11155111",
+      "_aggregator": "0x0DC00CCF27C6c154B3b2E8b68563874901d0a444",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "csc",
+      "_address": "0x2b30BFCE0Dc201fC0Ca686843BceC1574403799a",
+      "_chainId": "11155111",
+      "_aggregator": "0x74e41a331873992c23207f5e6b1A65465Ef9AAfD",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "core",
+      "_address": "0x4B2b4443DDa99Cd3e03c53779549E9A0f213828b",
+      "_chainId": "11155111",
+      "_aggregator": "0x5e6114b0dA73BE13cee7DB0d97DFF8612e9Ce15a",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "usdkyc",
+      "_address": "0x52a57341ce681eEfa9Fa13F12C7d3422EcAfd5a7",
+      "_chainId": "11155111",
+      "_aggregator": "0x69FFd8C6158403b7a142155612B6Fd61bdB90bb7",
+      "_tags": [
+        "governance"
+      ]
+    }
+  ],
+  60,
+  5,
+  "0x824d44705267Cc201bA9fE9Be0D0348E3D9e9d22",
+  [
+    {
+      "_symbol": "uni",
+      "_address": "0x2d09B2F2392F779F1DAe37Cff2A26454F2f5A205",
+      "_chainId": "11155111",
+      "_aggregator": "0x51A29d54F09200f064Dd8657498dcc9d5b3AFec7",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "mkr",
+      "_address": "0x5065510427b04E199c61dEeE91fD600520eA76Dd",
+      "_chainId": "11155111",
+      "_aggregator": "0xb973c1ff930f796Afe8fe25e50FFF59e986517Fa",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "aave",
+      "_address": "0x38D86878696D92a737471b5A0cF2D9170Cf97716",
+      "_chainId": "11155111",
+      "_aggregator": "0x8034216804c8aC6eEB305f8189FCfE78A9634552",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "snx",
+      "_address": "0xdf8F7169b3bab437DBcc66A85683Fb833125375E",
+      "_chainId": "11155111",
+      "_aggregator": "0xF46a790305B64f1f96767aD13E9131f571cf048a",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "comp",
+      "_address": "0x10A855E153BC5f64e1802Ca015aF00da7255235e",
+      "_chainId": "11155111",
+      "_aggregator": "0xCF98E09c3e42345571ecF5B4AF18110C9eafd465",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "solo",
+      "_address": "0xC4D4e40eDf442Be21FdEfeA42f92D20d5155d88D",
+      "_chainId": "11155111",
+      "_aggregator": "0xf70FEf57181b289D701B1888ca7063c9Ca851215",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "sec",
+      "_address": "0x923FD2B4B27132aBEbb21E0b8d58ddDD4F67aD41",
+      "_chainId": "11155111",
+      "_aggregator": "0x20444F322055E4fe86C60c33aA6D99C67191e515",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xrpaynet",
+      "_address": "0xC4E917dE3f75fc1D4b00577D2ECeE3FBcf1949bF",
+      "_chainId": "11155111",
+      "_aggregator": "0x43354ffb6acAF534c79050aAD23Cd625d86163aA",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xrph",
+      "_address": "0x96AaAd93F59d04f8f642Dc546afACe3A673C8F44",
+      "_chainId": "11155111",
+      "_aggregator": "0xd86AdfD802cd74203ED00892151cfe9c832ea29f",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "ghost",
+      "_address": "0xDfCDE448D6874395ff4Bc90cB309A009E4463BB0",
+      "_chainId": "11155111",
+      "_aggregator": "0x1e4Da9411e221AF1B5F03dFE4d3D8586fe4F9933",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "cny",
+      "_address": "0x05da0a50a0152E52939D216dc42aBfE2bbE45059",
+      "_chainId": "11155111",
+      "_aggregator": "0x71B422F08E6B2F46b0FA638f15bbdE4274a210D8",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "xgo",
+      "_address": "0x73317A2FcC924D50b41d912f211F6bAEa148f77C",
+      "_chainId": "11155111",
+      "_aggregator": "0x8ce1ECD345b87f69366CaCE92353247d290387db",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "ctf",
+      "_address": "0xD5dcA95f992D254108f939f6C8705c640C0cb9ee",
+      "_chainId": "11155111",
+      "_aggregator": "0x1d9cD381ddF89eBcD60a373049828461Ed696F88",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "mxi",
+      "_address": "0x7340846AB500a6d442268203dD2E001b178f4dFc",
+      "_chainId": "11155111",
+      "_aggregator": "0x3A7897dCCFC5F61895fA0F6e560644B356125056",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "btckyc",
+      "_address": "0x2DA41D7A9d6214233fB13f1b4cA0A6fce14Fce60",
+      "_chainId": "11155111",
+      "_aggregator": "0x0DC00CCF27C6c154B3b2E8b68563874901d0a444",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "csc",
+      "_address": "0x2b30BFCE0Dc201fC0Ca686843BceC1574403799a",
+      "_chainId": "11155111",
+      "_aggregator": "0x74e41a331873992c23207f5e6b1A65465Ef9AAfD",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "core",
+      "_address": "0x4B2b4443DDa99Cd3e03c53779549E9A0f213828b",
+      "_chainId": "11155111",
+      "_aggregator": "0x5e6114b0dA73BE13cee7DB0d97DFF8612e9Ce15a",
+      "_tags": [
+        "governance"
+      ]
+    },
+    {
+      "_symbol": "usdkyc",
+      "_address": "0x52a57341ce681eEfa9Fa13F12C7d3422EcAfd5a7",
+      "_chainId": "11155111",
+      "_aggregator": "0x69FFd8C6158403b7a142155612B6Fd61bdB90bb7",
+      "_tags": [
+        "governance"
+      ]
+    }
+  ]
+]
