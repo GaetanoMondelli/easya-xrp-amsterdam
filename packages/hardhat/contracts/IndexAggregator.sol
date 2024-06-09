@@ -81,6 +81,7 @@ contract IndexAggregator is AxelarExecutable {
 	uint32 public chainId;
 	uint32 public mainChainId;
     address mainChainAddress;
+	uint256 sequenceId = 0;
 
 
 	mapping(uint64 => address) public chainSelectorIdToSidechainAddress;
@@ -262,6 +263,11 @@ contract IndexAggregator is AxelarExecutable {
 		}
 	}
 
+	function getCollectPriceFeedsSeq() external returns (uint256[] memory) {
+		sequenceId += 1;
+		return sequenceId;
+	}
+
 	function collectPriceFeeds() external {
 		require(
 			block.timestamp - lastSampleTime >= samplingFrequency,
@@ -296,6 +302,37 @@ contract IndexAggregator is AxelarExecutable {
 			payable(msg.sender).transfer(bribeUnit);
 		}
 	}
+
+	    function persistIndex(uint256[] memory indexOrders, string memory tag) public returns (bool)
+    {
+        // indexOrders is an array index order [2,0,1] means 2nd token, 0th token, 1st token for price calculation
+        uint256 token_a_value;
+        uint256 token_b_value;
+        for (uint256 i = 0; i < indexOrders.length - 1; i++) {
+            token_a_value =  0;
+            token_b_value = 0;
+
+            for (uint256 j = 0; j < movingAverage[indexOrders[i]].length; j++) {
+                token_a_value += movingAverage[indexOrders[i]][j] * totalSupplies[indexOrders[i]];
+                token_b_value += movingAverage[indexOrders[i + 1]][j] * totalSupplies[indexOrders[i + 1]];
+            }
+
+
+            require(token_a_value > 0, "IndexAggregator: Token value is zero");
+            require(token_b_value > 0, "IndexAggregator: Token value is zero");
+            require(token_a_value > token_b_value, "IndexAggregator: order is not correct");
+        }
+
+        if(keccak256(abi.encodePacked(tag)) != keccak256(abi.encodePacked(""))) {
+           tagsIndexOrder[tag] = indexOrders;
+        }
+        else{
+            lastIndexOrder = indexOrders;
+            lastIndexTimestamp = block.timestamp;  
+        }
+        return true;
+    }
+
 
     function _execute(
         string calldata sourceChain_,
