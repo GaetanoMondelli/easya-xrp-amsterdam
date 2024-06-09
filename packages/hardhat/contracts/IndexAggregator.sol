@@ -82,6 +82,7 @@ contract IndexAggregator is AxelarExecutable {
 	uint32 public mainChainId;
     address mainChainAddress;
 	uint256 sequenceId = 0;
+	uint256 public tokenCount = 0;
 
 
 	mapping(uint64 => address) public chainSelectorIdToSidechainAddress;
@@ -101,7 +102,8 @@ contract IndexAggregator is AxelarExecutable {
 		bribeUnit = _aggregatorParams._bribeUnit;
 		axelarGateway = IAxelarGateway(_axelarGateway);
 		liquidityManager = ILiquidityManager(_liquidityManager);
-		for (uint256 i = 0; i < _tokenInfo.length; i++) {
+		tokenCount = _tokenInfo.length;
+		for (uint256 i = 0; i < tokenCount; i++) {
 			tokenInfo.push(_tokenInfo[i]);
 			tokenSymbols.push(_tokenInfo[i]._symbol);
 			tokens[_tokenInfo[i]._symbol] = i;
@@ -140,6 +142,20 @@ contract IndexAggregator is AxelarExecutable {
 		uint256[] memory _totalSupplies,
 		uint256[] memory _liquidities
 	) external {
+		require(
+			_totalSupplies.length == tokenInfo.length,
+			"IndexAggregator: Invalid total supplies length"
+		);
+		require(sampleSize > 0, "IndexAggregator: Sample size is zero");
+		require(
+			_liquidities.length == tokenInfo.length,
+			"IndexAggregator: Invalid liquidities length"
+		);
+		// enough samples
+		require(
+			movingAverage[0].length >= sampleSize,
+			"IndexAggregator: Not enough samples"
+		);
 		for (uint256 i = 0; i < tokenInfo.length; i++) {
 			if (tokenInfo[i]._chainId == chainId) {
 				liquidities[i] = liquidityManager.getTotalLiquidityForToken(
@@ -327,9 +343,9 @@ contract IndexAggregator is AxelarExecutable {
             }
 
 
-            require(token_a_value > 0, "IndexAggregator: Token value is zero");
-            require(token_b_value > 0, "IndexAggregator: Token value is zero");
-            require(token_a_value > token_b_value, "IndexAggregator: order is not correct");
+            // require(token_a_value > 0, "IndexAggregator: Token value is zero");
+            // require(token_b_value > 0, "IndexAggregator: Token value is zero");
+            // require(token_a_value > token_b_value, "IndexAggregator: order is not correct");
         }
 
         if(keccak256(abi.encodePacked(tag)) != keccak256(abi.encodePacked(""))) {

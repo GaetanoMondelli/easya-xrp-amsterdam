@@ -105,9 +105,9 @@ const Home: NextPage = () => {
           onClick={async () => {
             setIsModalVisible(true);
           }}
-          >
+        >
           Show Diagram
-          </button>
+        </button>
         <br></br>
 
         <Select
@@ -228,10 +228,44 @@ const Home: NextPage = () => {
                         cursor: "pointer",
                       }}
                       onClick={() => {
+                        const command = {
+                          method: "get_aggregate_price",
+                          params: [
+                            {
+                              ledger_index: "current",
+                              base_asset: "XRP",
+                              quote_asset: "USD",
+                              trim: 20,
+                              oracles: [
+                                {
+                                  account: "rp047ow9WcPmnNpVHMQV5A4BF6vaL9Abm6",
+                                  oracle_document_id: 34,
+                                },
+                                {
+                                  account: "rp147ow9WcPmnNpVHMQV5A4BF6vaL9Abm7",
+                                  oracle_document_id: 56,
+                                },
+                                {
+                                  account: "rp247ow9WcPmnNpVHMQV5A4BF6vaL9Abm8",
+                                  oracle_document_id: 2,
+                                },
+                                {
+                                  account: "rp347ow9WcPmnNpVHMQV5A4BF6vaL9Abm9",
+                                  oracle_document_id: 7,
+                                },
+                                {
+                                  account: "rp447ow9WcPmnNpVHMQV5A4BF6vaL9Abm0",
+                                  oracle_document_id: 109,
+                                },
+                              ],
+                            },
+                          ],
+                        };
+
                         fetch("http://localhost:3000/api/get_aggregated_price?base_asset=CTF&price_unit=USD")
                           .then(response => response.json())
                           .then(data => {
-                            console.log(data);
+                            console.log(command);
                             setResponse(data);
                             setStepCount(2);
                           });
@@ -299,11 +333,9 @@ const Home: NextPage = () => {
           >
             <br></br>
             <br></br>
-
             Response XRPL Mock Node :3000 Objects
             <br></br>
             <br></br>
-
             <ReactJson src={response} />
           </div>
         </div>

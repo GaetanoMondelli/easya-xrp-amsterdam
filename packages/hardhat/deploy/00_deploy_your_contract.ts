@@ -388,7 +388,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     });
 
     const indexAggregator = (await hre.ethers.getContract("IndexAggregator")) as IndexAggregator;
-    await indexAggregator.setChainId(sepoliaChainId, xrpledgerChainId, "0xBb09Df830F0a1222DF4B90Ca3D4B6B0483b05217");
+    await indexAggregator.setChainId(sepoliaChainId, xrpledgerChainId, "0x5D7d0dD4A586B5BA8ae3A7D3992da4fbf17F11F5");
   }
 
   if (hre.network.name === "xrpledger") {

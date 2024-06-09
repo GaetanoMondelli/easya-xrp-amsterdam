@@ -35,7 +35,8 @@ contract MockAxelarGateway is IAxelarGateway {
 		bytes calldata payload,
 		string calldata symbol,
 		uint256 amount
-	) external override {}
+	) external override {
+	}
 
 	function isContractCallApproved(
 		bytes32 commandId,
@@ -43,7 +44,9 @@ contract MockAxelarGateway is IAxelarGateway {
 		string calldata sourceAddress,
 		address contractAddress,
 		bytes32 payloadHash
-	) external view override returns (bool) {}
+	) external view override returns (bool) {
+		return true;
+	}
 
 	function isContractCallAndMintApproved(
 		bytes32 commandId,
@@ -53,14 +56,18 @@ contract MockAxelarGateway is IAxelarGateway {
 		bytes32 payloadHash,
 		string calldata symbol,
 		uint256 amount
-	) external view override returns (bool) {}
+	) external view override returns (bool) {
+		return true;
+	}
 
 	function validateContractCall(
 		bytes32 commandId,
 		string calldata sourceChain,
 		string calldata sourceAddress,
 		bytes32 payloadHash
-	) external override returns (bool) {}
+	) external override returns (bool) {
+		return true;
+	}
 
 	function validateContractCallAndMint(
 		bytes32 commandId,
@@ -69,7 +76,9 @@ contract MockAxelarGateway is IAxelarGateway {
 		bytes32 payloadHash,
 		string calldata symbol,
 		uint256 amount
-	) external override returns (bool) {}
+	) external override returns (bool) {
+		return true;
+	}
 
 	function authModule() external view override returns (address) {}
 
@@ -111,8 +120,5 @@ contract MockAxelarGateway is IAxelarGateway {
 	) external override {}
 
 	function execute(bytes calldata input) external override {
-        // execute the bytes input
-		
-
     }
 }

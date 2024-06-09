@@ -7,8 +7,11 @@ import { CheckCircleTwoTone } from "@ant-design/icons";
 import { Avatar, InputNumber, List, Modal, Popover, Select, Steps, Tag, Watermark } from "antd";
 import { ArcElement, CategoryScale, Chart, LineElement, LinearScale, LogarithmicScale, PointElement } from "chart.js";
 import type { NextPage } from "next";
+import { set } from "nprogress";
 import { Line, Pie } from "react-chartjs-2";
+import { useWriteContract } from "wagmi";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
+import { SEPOLIA_NETWOKR_ID, XRP_NETWOKR_ID, getContractByNetworkId } from "~~/utils/scaffold-eth/contractsData";
 
 Chart.register(CategoryScale);
 Chart.register(LinearScale);
@@ -41,12 +44,18 @@ const IndexPage: NextPage = ({ params }: { params: { indexName: string } }) => {
   const [indexData, setIndexData] = useState<any>([]);
   const [equalWeighted, setEqualWeighted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stepCount, setStepCount] = useState(2);
+  const [stepCount, setStepCount] = useState(1);
+  const [showList, setShowList] = useState(false);
+  const [persist, setPersist] = useState(false);
 
-  const [etehreumTimeStamp, setEthereumTimeStamp] = useState<any>(new Date().toLocaleDateString());
-  const [binanceTimeStamp, setBinanceTimeStamp] = useState<any>(new Date().toLocaleDateString());
+  const contractName = "IndexAggregator";
+
+  // const [etehreumTimeStamp, setEthereumTimeStamp] = useState<any>(new Date().toLocaleDateString());
+  // const [binanceTimeStamp, setBinanceTimeStamp] = useState<any>(new Date().toLocaleDateString());
 
   const { targetNetwork } = useTargetNetwork();
+
+  const { writeContract } = useWriteContract();
 
   useEffect(() => {
     // last 30 days for labels
@@ -355,125 +364,256 @@ const IndexPage: NextPage = ({ params }: { params: { indexName: string } }) => {
           {categoryList.find((c: any) => c.id === params.indexName)?.content}
         </p>
         <br />
-        <Steps
-          style={{
-            width: "850px",
-            height: "250px",
-            // border: "1px solid #ccc",
-            // text justifies the text
-            // center the text
-            margin: "auto",
-          }}
-          current={stepCount}
-          items={[
-            {
-              title: "Update EVM Chain Data",
-              description: (
-                <>
-                  Get supplies (totalSupply), prices (V3Aggregator), and liquidity (Uniswap) from the EVM tokens
-                  <br></br>
-                  <br></br>
-                  <button
-                    style={{
-                      height: "30px",
-                      width: "200px",
-                      backgroundColor: "#f56a00",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                      // put on bottom
-                      position: "absolute",
-                      bottom: "0",
-                    }}
-                    onClick={() => {
-                      console.log("clicked");
-                    }}
-                  >
-                    Update Data
-                  </button>
-                </>
-              ),
-            },
-            {
-              title: "Updated Axeler Bridge",
-              description: (
-                <>
-                  Axelar Bridge executes a cross-chain transaction pushing external chain data to the Index Aggregator
-                  contract
-                  <br></br>
-                  {/* <button
-                    style={{
-                      height: "30px",
-                      width: "200px",
-                      backgroundColor: "#f56a00",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                      position: "absolute",
-                      bottom: "0",
-                    }}
-                    onClick={() => {
-                      console.log("clicked");
-                    }}
-                  >Approve</button> */}
-                </>
-              ),
-              // subTitle: (
-              //   <a
-              //     style={{
-              //       color: "green",
-              //       textDecoration: "underline",
-              //     }}
-              //     href="https://sepolia.etherscan.io/tx/0xe3bc877a71b6e194b245de01af285b6768597906a3d0255b4b4a555cd79e4705"
-              //   >
-              //     TXhash (0xe3b)
-              //   </a>
-              // ),
-            },
-            {
-              title: "Persist List of Tokens",
-              // subTitle: (
-              //   <a
-              //     style={{
-              //       color: "green",
-              //       textDecoration: "underline",
-              //     }}
-              //     href="https://sepolia.etherscan.io/tx/0x88f9a23993945c84d4accb1f2601cdd237c82d0ee3ad290e0f78bea5b803ac96"
-              //   >
-              //     TXhash (0x88f)
-              //   </a>
-              // ),
-              description: (
-                <>
-                  Persist the list of tokens to the Index Aggregator contract
-                  <br></br>
-                  <button
-                    style={{
-                      height: "30px",
-                      width: "200px",
-                      padding: "3px 4px",
-                      // green
-                      backgroundColor: "#f56a00",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                      position: "absolute",
-                      bottom: "0",
-                    }}
-                    onClick={() => {
-                      console.log("clicked");
-                    }}
-                  >
-                    Publish
-                  </button>
-                </>
-              ),
-            },
-          ]}
-        />
+        {targetNetwork.name === "XRP EVM DEVNET LEDGER" && (
+          <Steps
+            style={{
+              width: "1050px",
+              height: "280px",
+              // border: "1px solid #ccc",
+              // text justifies the text
+              // center the text
+              margin: "auto",
+            }}
+            current={stepCount}
+            items={[
+              {
+                title: "Update EVM Chain Data",
+                description: (
+                  <>
+                    Get supplies (totalSupply), prices (V3Aggregator), and liquidity (Uniswap) from the EVM tokens
+                    <br></br>
+                    <br></br>
+                    <button
+                      style={{
+                        height: "30px",
+                        width: "200px",
+                        backgroundColor: "#f56a00",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        // put on bottom
+                        position: "absolute",
+                        bottom: "0",
+                      }}
+                      onClick={async () => {
+                        // Get supplies (totalSupply), prices (V3Aggregator), and liquidity (Uniswap) from the EVM tokens
+                        await writeContract({
+                          address: getContractByNetworkId(XRP_NETWOKR_ID)[contractName].address,
+                          functionName: "setSideChainAddress",
+                          abi: getContractByNetworkId(XRP_NETWOKR_ID)[contractName].abi,
+                          args: [1440002, getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].address],
+                        });
+                        setTimeout(() => {
+                          setShowList(true);
+                        }, 10000);
+                      }}
+                    >
+                      Update Data
+                    </button>
+                  </>
+                ),
+              },
+              {
+                title: "Updated Axeler (XRPL)",
+                description: (
+                  <>
+                    Axelar Bridge executes a cross-chain transaction pushing external chain data to the Index Aggregator
+                    contract from Ethereum (Sepolia) and XRPL
+                    <br></br>
+                    <button
+                      style={{
+                        height: "30px",
+                        width: "200px",
+                        backgroundColor: "#f56a00",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        position: "absolute",
+                        bottom: "0",
+                      }}
+                      onClick={() => {
+                        setStepCount(2);
+                      }}
+                    >
+                      Confirm
+                    </button>
+                  </>
+                ),
+                // subTitle: (
+                //   <a
+                //     style={{
+                //       color: "green",
+                //       textDecoration: "underline",
+                //     }}
+                //     href="https://sepolia.etherscan.io/tx/0xe3bc877a71b6e194b245de01af285b6768597906a3d0255b4b4a555cd79e4705"
+                //   >
+                //     TXhash (0xe3b)
+                //   </a>
+                // ),
+              },
+              {
+                title: "Updated Axeler Bridge (EVM)",
+                description: (
+                  <>
+                    Axelar Bridge executes a cross-chain transaction pushing external chain data to the Index Aggregator
+                    contract from Ethereum (Sepolia) and XRPL
+                    <br></br>
+                    <button
+                      style={{
+                        height: "30px",
+                        width: "200px",
+                        backgroundColor: "#f56a00",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        position: "absolute",
+                        bottom: "0",
+                      }}
+                      onClick={async () => {
+                        console.log("clicked");
+                        const delay = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+                        await delay(3000);
+                        setStepCount(3);
+                        setShowList(true);
+                      }}
+                    >
+                      Confirm
+                    </button>
+                  </>
+                ),
+                // subTitle: (
+                //   <a
+                //     style={{
+                //       color: "green",
+                //       textDecoration: "underline",
+                //     }}
+                //     href="https://sepolia.etherscan.io/tx/0xe3bc877a71b6e194b245de01af285b6768597906a3d0255b4b4a555cd79e4705"
+                //   >
+                //     TXhash (0xe3b)
+                //   </a>
+                // ),
+              },
+              {
+                title: "Persist List of Tokens",
+                // subTitle: (
+                //   <a
+                //     style={{
+                //       color: "green",
+                //       textDecoration: "underline",
+                //     }}
+                //     href="https://sepolia.etherscan.io/tx/0x88f9a23993945c84d4accb1f2601cdd237c82d0ee3ad290e0f78bea5b803ac96"
+                //   >
+                //     TXhash (0x88f)
+                //   </a>
+                // ),
+                description: (
+                  <>
+                    Persist the list of tokens to the Index Aggregator contract.
+                    {persist && (
+                      <Tag
+                        color="green"
+                        style={{
+                          marginLeft: "10px",
+                          marginTop: "10px",
+                        }}
+                      >
+                         Persisted at {new Date().toLocaleTimeString()}
+                      </Tag>
+                    )}
+                    <br></br>
+                    {stepCount === 3 && (
+                      <button
+                        style={{
+                          height: "30px",
+                          width: "200px",
+                          padding: "3px 4px",
+                          // green
+                          backgroundColor: "#f56a00",
+                          color: "white",
+                          border: "none",
+                          cursor: "pointer",
+                          position: "absolute",
+                          bottom: "0",
+                        }}
+                        onClick={async () => {
+                          await writeContract({
+                            address: getContractByNetworkId(XRP_NETWOKR_ID)[contractName].address,
+                            functionName: "persistIndex",
+                            abi: getContractByNetworkId(XRP_NETWOKR_ID)[contractName].abi,
+                            args: [
+                              indexData
+                                .map((token: any, index: number) => ({ index, market_cap: token.market_cap }))
+                                .sort((a: any, b: any) => b.market_cap - a.market_cap)
+                                .map((item: any) => item.index),
+                              "", // Tag in the future used for filtering by category
+                            ],
+                          });
+                          const delay = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+                          await delay(8000);
+                          setPersist(true);
+                        }}
+                      >
+                        Publish & Persist
+                      </button>
+                    )}
+                  </>
+                ),
+              },
+            ]}
+          />
+        )}
+        {targetNetwork.name === "Sepolia" && (
+          <button
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              // backgroundColor: "#1890ff",
+              backgroundColor: "#f56a00",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={async () => {
+              // Get supplies (totalSupply), prices (V3Aggregator), and liquidity (Uniswap) from the EVM tokens
+              // await writeContract({
+              //   address: getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].address,
+              //   functionName: "updateTokenParams",
+              //   abi: getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].abi,
+              //   args: [[], []],
+              // });
+              // await writeContract({
+              //   address: getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].address,
+              //   functionName: "execute",
+              //   abi: getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].abi,
+              //   args: [
+              //     "0x3231000000000000000000000000000000000000000000000000000000000000",
+              //     "1440002",
+              //     getContractByNetworkId(SEPOLIA_NETWOKR_ID)[contractName].address,
+              //     "0x5b28737472696e67292c2875696e74323536292c2875696e74323536292c282231343430303032222c333230312c3231333430295d",
+              //   ],
+              // });
+              console.log(
+                "clicked",
+                getContractByNetworkId(XRP_NETWOKR_ID)["MockAxelarGateway"].abi,
+                "0xBDb61affDA4490B9e962b542cfb212ec50D1AC0C",
+              );
+              await writeContract({
+                address: "0xBDb61affDA4490B9e962b542cfb212ec50D1AC0C",
+                functionName: "execute",
+                abi: getContractByNetworkId(XRP_NETWOKR_ID)["MockAxelarGateway"].abi,
+                args: [
+                  "0x5b28737472696e67292c2875696e74323536292c2875696e74323536292c282231343430303032222c333230312c3231333430295d",
+                ],
+              });
+              // setShowList(true);
+            }}
+          >
+            Update ChainData and Send to EVM Ledger
+          </button>
+        )}
         <br />
         <br />
-        {indexData && (
+        {indexData && showList && (
           <List
             // className="demo-loadmore-list"
             itemLayout="horizontal"
@@ -489,6 +629,13 @@ const IndexPage: NextPage = ({ params }: { params: { indexName: string } }) => {
               Object.keys(indexData)
                 .map((k: any) => indexData[k])
                 .slice(0, indexLimit)
+                // if targetNetwork is Sepolia, then only show the tokens that have market cap > 0
+                .filter((m: any) => {
+                  if (targetNetwork.name === "Sepolia") {
+                    return m.market_cap_rank > 0;
+                  }
+                  return true;
+                })
             }
             renderItem={item => (
               <List.Item
@@ -566,20 +713,22 @@ const IndexPage: NextPage = ({ params }: { params: { indexName: string } }) => {
         )}
         {/* central button for launch an XTF Fund */}
         <br />
-        <button
-          style={{
-            padding: "10px 20px",
-            borderRadius: "5px",
-            // backgroundColor: "#1890ff",
-            backgroundColor: "#f56a00",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-          }}
-          onClick={showModal}
-        >
-          Launch XTF Fund
-        </button>
+        {targetNetwork.name === "XRP EVM DEVNET LEDGER" && persist && (
+          <button
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              // backgroundColor: "#1890ff",
+              backgroundColor: "#f56a00",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={showModal}
+          >
+            Launch XTF Fund
+          </button>
+        )}
         <Modal
           width={1200}
           title={
