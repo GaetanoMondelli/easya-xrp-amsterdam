@@ -268,6 +268,15 @@ contract IndexAggregator is AxelarExecutable {
 		return sequenceId;
 	}
 
+	function pullexecute(
+		string calldata sourceChain_,
+        string calldata sourceAddress_,
+        bytes calldata payload_
+	) external
+	{
+		return _execute(sourceChain_, sourceAddress_, payload_);
+	}
+
 	function collectPriceFeeds() external {
 		require(
 			block.timestamp - lastSampleTime >= samplingFrequency,
@@ -332,7 +341,6 @@ contract IndexAggregator is AxelarExecutable {
         }
         return true;
     }
-
 
     function _execute(
         string calldata sourceChain_,

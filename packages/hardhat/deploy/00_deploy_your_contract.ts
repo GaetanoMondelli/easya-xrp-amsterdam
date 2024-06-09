@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { IndexAggregator, MockUniswapV3Factory } from "../typechain-types";
+import { IndexAggregator, MockAxelarGateway, MockUniswapV3Factory } from "../typechain-types";
 // import { networks } from "../scripts/networks";
 // import { SubscriptionManager, SecretsManager, Location } from "@chainlink/functions-toolkit";
 // import { JsonRpcProvider } from "@ethersproject/providers";
@@ -326,6 +326,8 @@ const tokenInfo = [
   },
 ];
 
+const sepoliaChainId = 11155111;
+
 // const tokenInfo: any = [];
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -340,8 +342,56 @@ const sleepTime = 4000;
 const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
+
+  if (hre.network.name === "sepolia") {
+    await deploy("MockAxelarGateway", {
+      from: deployer,
+      log: true,
+    });
+
+    const axelarGateway = (await hre.ethers.getContract("MockAxelarGateway")) as MockAxelarGateway;
+
+    await deploy("MockUSDC", {
+      from: deployer,
+      args: [],
+      log: true,
+    });
+
+    await deploy("MockUniswapV3Factory", {
+      from: deployer,
+      log: true,
+    });
+
+    const uniFactory = (await hre.ethers.getContract("MockUniswapV3Factory")) as MockUniswapV3Factory;
+
+    await deploy("LiquidityManager", {
+      from: deployer,
+      args: [await uniFactory.getAddress(), []],
+      log: true,
+    });
+
+    const liquidityManager = await hre.ethers.getContract("LiquidityManager");
+
+    await deploy("IndexAggregator", {
+      from: deployer,
+      args: [
+        [],
+        await liquidityManager.getAddress(),
+        await axelarGateway.getAddress(),
+        {
+          _timeWindow: 60,
+          _sampleSize: 30,
+          _bribeUnit: parseEther("0.05"),
+        },
+      ],
+      log: true,
+    });
+
+    const indexAggregator = (await hre.ethers.getContract("IndexAggregator")) as IndexAggregator;
+    await indexAggregator.setChainId(sepoliaChainId, xrpledgerChainId, "0xBb09Df830F0a1222DF4B90Ca3D4B6B0483b05217");
+  }
+
   if (hre.network.name === "xrpledger") {
-    const sepoliaChainId = 11155111;
     console.log("RPC URL:");
     await deploy("MockUSDC", {
       from: deployer,
@@ -476,8 +526,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     }
 
     // print on a file all the arguments of the index aggregator called args.json
-    const sepoliaToChaidoRouter = "0x3E842E3A79A00AFdd03B52390B1caC6306Ea257E";
-    const providerHash = ["0x9db032812994aabd3f3d25635ab22336a699bf3cf9b9ef84e547bbd8f7d0ae25"];
+    // const sepoliaToChaidoRouter = "0x3E842E3A79A00AFdd03B52390B1caC6306Ea257E";
+    // const providerHash = ["0x9db032812994aabd3f3d25635ab22336a699bf3cf9b9ef84e547bbd8f7d0ae25"];
 
     // await deploy("TaggingVerifier", {
     //   from: deployer,
@@ -491,12 +541,19 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     console.log("Deploying Index Aggregator", tokenInfo);
     console.log("Index Aggregator");
 
+    await deploy("MockAxelarGateway", {
+      from: deployer,
+      log: true,
+    });
+
+    const axelarGateway = (await hre.ethers.getContract("MockAxelarGateway")) as MockAxelarGateway;
+
     await deploy("IndexAggregator", {
       from: deployer,
       args: [
         tokenInfo,
         await liquidityManager.getAddress(),
-        sepoliaToChaidoRouter,
+        await axelarGateway.getAddress(),
         {
           _timeWindow: 60,
           _sampleSize: 30,
@@ -510,11 +567,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     console.log("Index Aggregator Deployed");
 
     const indexAggregator = (await hre.ethers.getContract("IndexAggregator")) as IndexAggregator;
-    // await indexAggregator.setTaggingVerifier(await taggingVerifier.getAddress());
-
-    // for (let i = 0; i < categoryArray.length; i++) {
-    //   console.log(categoryArray[i]?.id, categoryObject.get(categoryArray[i]?.id)?.length);
-    // }
+    await indexAggregator.setChainId(xrpledgerChainId, xrpledgerChainId, await indexAggregator.getAddress());
 
     fs.writeFileSync(
       path.resolve(__dirname, "../args.json"),
